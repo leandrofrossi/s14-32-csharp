@@ -115,18 +115,18 @@ const PostulationForm = ({ isOpen, onClose, eventVocations, eventId, eventData }
                         </TabList>
                         <TabPanels>
                             <TabPanel>
-                                <Box display='flex' gap='2'><Text fontWeight='semibold'>Nombre del Cliente:</Text><Text>{eventData.clientName}</Text></Box>
-                                <Box display='flex' gap='2'><Text fontWeight='semibold'>Nombre del Evento:</Text><Text> {eventData.name}</Text></Box>
-                                <Box display='flex' gap='2'><Text fontWeight='semibold'>Tipo de Evento:</Text><Text>{eventData.eventType.name}</Text></Box>
+                                <Box display='flex' gap='2'><Text fontWeight='semibold'>Nombre del Cliente:</Text><Text>{eventData?.clientName || ''}</Text></Box>
+                                <Box display='flex' gap='2'><Text fontWeight='semibold'>Nombre del Evento:</Text><Text> {eventData?.name || ''}</Text></Box>
+                                <Box display='flex' gap='2'><Text fontWeight='semibold'>Tipo de Evento:</Text><Text>{eventData?.eventType?.name || ''}</Text></Box>
                             </TabPanel> 
                             <TabPanel>
-                                <Box display='flex' gap='2'><Text fontWeight='semibold'>Descripción:</Text><Text>{eventData.description}</Text></Box>
+                                <Box display='flex' gap='2'><Text fontWeight='semibold'>Descripción:</Text><Text>{eventData?.descriptio || ''n}</Text></Box>
                             </TabPanel>
                             <TabPanel>
-                                <Box display='flex' gap='2'><Text fontWeight='semibold'>Fecha y Hora:</Text><Text>{eventData.initDate}</Text></Box>
-                                <Box display='flex' gap='2'><Text fontWeight='semibold'>Duración:</Text><Text>{eventData.duration}</Text></Box>
-                                <Box display='flex' gap='2'><Text fontWeight='semibold'>Cantidad de Invitados:</Text><Text>{eventData.guests}</Text></Box>
-                                <Box display='flex' gap='2'><Text fontWeight='semibold'>Ciudad:</Text><Text>{eventData.city}</Text></Box>
+                                <Box display='flex' gap='2'><Text fontWeight='semibold'>Fecha y Hora:</Text><Text>{eventData?.initDate || ''}</Text></Box>
+                                <Box display='flex' gap='2'><Text fontWeight='semibold'>Duración:</Text><Text>{eventData?.duration || ''}</Text></Box>
+                                <Box display='flex' gap='2'><Text fontWeight='semibold'>Cantidad de Invitados:</Text><Text>{eventData?.guests || ''}</Text></Box>
+                                <Box display='flex' gap='2'><Text fontWeight='semibold'>Ciudad:</Text><Text>{eventData?.city || ''}</Text></Box>
                             </TabPanel>                            
                         </TabPanels>
                     </Tabs>                        
