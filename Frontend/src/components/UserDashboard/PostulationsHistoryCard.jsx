@@ -79,7 +79,7 @@ const PostulationsHistoryCard = () => {
           gap='6'
           p='3'
           justifyItems='center'>
-          {postulationsCreated.map(event => { 
+          {postulationsCreated && events && postulationsCreated.map(event => { 
               const correspondingEvent = events.find(e => e.id === event.eventId);
 
               return (

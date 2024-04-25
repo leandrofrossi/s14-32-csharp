@@ -16,14 +16,15 @@ const PostulationForm = ({ isOpen, onClose, eventVocations, eventId, eventData }
     const navigate = useNavigate()
 
     useEffect(() => { 
+        if (eventData) {
         console.log(eventData)       
         const storedVocations = JSON.parse(localStorage.getItem('vocations'));
         if (storedVocations) {
             setVocations(storedVocations)
-        }
+        }}
     }, [eventData])
     useEffect(() => {       
-        const matchedVocations = vocations.filter(vocation => eventVocations.some(eventVocation => eventVocation.id === vocation.id))
+        const matchedVocations = vocations?.filter(vocation => eventVocations.some(eventVocation => eventVocation.id === vocation.id))
         setMatchingVocations(matchedVocations)
     }, [vocations, eventVocations])
 
