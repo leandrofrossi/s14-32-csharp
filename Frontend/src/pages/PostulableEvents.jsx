@@ -23,7 +23,7 @@ const PostulableEvents = () => {
   const handleEventModalOpen = () => {setIsEventModalOpen(true)}  
   const handleEventModalClose = () => {setIsEventModalOpen(false)}
   const handleEventOptionClick = (eventOption) => {
-    if (eventOption.name === "Todos") {
+    if (eventOption && eventOption.name === "Todos") {
         setSelectedEventOption(null)
         setLoadAllEvents(true)
     } else {
