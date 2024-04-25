@@ -120,7 +120,7 @@ const PostulationForm = ({ isOpen, onClose, eventVocations, eventId, eventData }
                                 <Box display='flex' gap='2'><Text fontWeight='semibold'>Tipo de Evento:</Text><Text>{eventData?.eventType?.name || ''}</Text></Box>
                             </TabPanel> 
                             <TabPanel>
-                                <Box display='flex' gap='2'><Text fontWeight='semibold'>Descripción:</Text><Text>{eventData?.descriptio || ''n}</Text></Box>
+                                <Box display='flex' gap='2'><Text fontWeight='semibold'>Descripción:</Text><Text>{eventData?.description || ''}</Text></Box>
                             </TabPanel>
                             <TabPanel>
                                 <Box display='flex' gap='2'><Text fontWeight='semibold'>Fecha y Hora:</Text><Text>{eventData?.initDate || ''}</Text></Box>
