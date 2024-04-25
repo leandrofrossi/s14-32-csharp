@@ -23,9 +23,10 @@ const PostulationForm = ({ isOpen, onClose, eventVocations, eventId, eventData }
             setVocations(storedVocations)
         }}
     }, [eventData])
-    useEffect(() => {       
+    useEffect(() => { 
+        if (vocations){     
         const matchedVocations = vocations?.filter(vocation => eventVocations.some(eventVocation => eventVocation.id === vocation.id))
-        setMatchingVocations(matchedVocations)
+        setMatchingVocations(matchedVocations)}
     }, [vocations, eventVocations])
 
     const validationSchema = Yup.object().shape({
@@ -87,7 +88,7 @@ const PostulationForm = ({ isOpen, onClose, eventVocations, eventId, eventData }
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-        {matchingVocations.map((vocation, index) => (
+        {matchingVocations.length >0 ? matchingVocations.map((vocation, index) => (
             <Button
                 key={index}
                 variant={selectedVocation && selectedVocation.id === vocation.id ? "outline" : "ghost"}                
@@ -96,7 +97,7 @@ const PostulationForm = ({ isOpen, onClose, eventVocations, eventId, eventData }
             >
                 {vocation.name}
             </Button>
-        ))}
+        )) : <Text>Especialidades</Text>}
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody p='4'>
@@ -107,6 +108,7 @@ const PostulationForm = ({ isOpen, onClose, eventVocations, eventId, eventData }
                     </Center>
                 </CardHeader>
                 <CardBody mt='-6' fontFamily='body'>
+                    {eventData &&
                     <Box>
                     <Tabs color='#263049' h='20vh'>
                         <TabList>
@@ -131,7 +133,7 @@ const PostulationForm = ({ isOpen, onClose, eventVocations, eventId, eventData }
                             </TabPanel>                            
                         </TabPanels>
                     </Tabs>                        
-                    </Box>
+                    </Box>}
                     <form onSubmit={handleSubmit}>    
                     <Box display='flex' flexDirection='column' alignItems='center' gap='6' >
                         <Box w='full'>

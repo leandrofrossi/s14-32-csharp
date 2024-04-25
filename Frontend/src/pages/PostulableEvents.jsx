@@ -39,8 +39,8 @@ const PostulableEvents = () => {
       try {                
         const responseEventTypes = await axios.get('https://www.eventplanner.somee.com/api/EventType')
         console.log(responseEventTypes.data)
-        const updatedEventOptions = [...responseEventTypes.data, { id: null, name: 'Todos' }]
-        setEventOptions(updatedEventOptions)
+        const updatedEventOptions = [...responseEventTypes.data, { id: 8, name: 'Todos' }]
+        setEventOptions(updatedEventOptions)        
       } catch (error) {
         console.error('Error al obtener lista de tipos de eventos:', error.message)
       }
@@ -124,7 +124,7 @@ const PostulableEvents = () => {
           gap='6'
           p='3'
           justifyItems='center' alignItems='center'>
-          {postulableEventsList.length > 0 ? postulableEventsList.map(event => (
+          {postulableEventsList && postulableEventsList.length > 0 ? postulableEventsList.map(event => (
             <Box key={event.id}>          
               <Box flexDirection='column' w={{base:'50vw', md:'35vw', lg:'20vw'}} textAlign='center' key={event.id}  onClick={handlePostulationFormOpen}>                          
                   <Heading py='2' size='sm'>{event.name}</Heading>
