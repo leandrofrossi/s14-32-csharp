@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardBody, CardFooter, CardHeader,Heading, Image, Input, List, ListItem, Text } from "@chakra-ui/react"
+import { Box, Button, Card, CardBody, CardHeader, Heading, Image, Input, List, ListItem, Text } from "@chakra-ui/react"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
@@ -14,11 +14,11 @@ const PostulableEvents = () => {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false)
   const [selectedEventOption, setSelectedEventOption] = useState(null)
   const [loadAllEvents, setLoadAllEvents] = useState(true)
-  const [isPostulationFormOpen, setIsPostulationFormOpen] = useState(false)
+  const [openEventFormId, setOpenEventFormId] = useState(null)
  
 
-  const handlePostulationFormOpen = () => {setIsPostulationFormOpen(true)}  
-  const handlePostulationFormClose = () => {setIsPostulationFormOpen(false)}
+  const handlePostulationFormOpen = (eventId) => { setOpenEventFormId(eventId) }  
+  const handlePostulationFormClose = () => { setOpenEventFormId(null) }
 
   const handleEventModalOpen = () => {setIsEventModalOpen(true)}  
   const handleEventModalClose = () => {setIsEventModalOpen(false)}
@@ -126,23 +126,18 @@ const PostulableEvents = () => {
           justifyItems='center' alignItems='center'>
           {postulableEventsList && postulableEventsList.length > 0 ? postulableEventsList.map(event => (
             <Box key={event.id}>          
-              <Box flexDirection='column' w={{base:'50vw', md:'35vw', lg:'20vw'}} textAlign='center' key={event.id}  onClick={handlePostulationFormOpen}>                          
+              <Box flexDirection='column' w={{base:'50vw', md:'35vw', lg:'20vw'}} textAlign='center' key={event.id}  onClick={() => handlePostulationFormOpen(event.id)}>                          
                   <Heading py='2' size='sm'>{event.name}</Heading>
                   <Image src={Postulable} alt={event.name} borderRadius='md'/>              
               </Box>   
-              <PostulationForm isOpen={isPostulationFormOpen}
-              onClose={handlePostulationFormClose}
-              eventVocations={event.vocations} 
-              eventId={event.id}
-              eventData={event}/>  
+              {openEventFormId === event.id && (
+                <PostulationForm isOpen={true} onClose={handlePostulationFormClose} eventVocations={event.vocations} eventId={event.id} eventData={event}/>
+              )}
             </Box>                  
           )) :           
             <Text fontSize='4xl'>No hay eventos disponibles</Text>             
         }
-        </CardBody>
-        <CardFooter >            
-            
-        </CardFooter>
+        </CardBody>        
     </Card>
   )
 }

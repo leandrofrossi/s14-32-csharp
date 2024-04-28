@@ -109,8 +109,8 @@ const PostulationForm = ({ isOpen, onClose, eventVocations, eventId, eventData }
                 </CardHeader>
                 <CardBody mt='-6' fontFamily='body'>
                     {eventData &&
-                    <Box>
-                    <Tabs color='#263049' h='20vh'>
+                    <Box color='#263049'>
+                    <Tabs >
                         <TabList>
                             <Tab>Nombre y Tipo Evento</Tab>                           
                             <Tab>Descripción</Tab>
