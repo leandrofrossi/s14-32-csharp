@@ -39,7 +39,7 @@ export default function Register () {
     firstName: Yup.string().min(3, 'Mínimo 3 caractares').max(20, 'Máximo 20 caracteres').required('Campo requerido'),
     lastName: Yup.string().min(3, 'Mínimo 3 caractares').max(20, 'Máximo 20 caracteres').required('Campo requerido'),
     areacode: Yup.number().min(2, 'Mínimo 2 caractares').required('Campo requerido'),
-    phone: Yup.number().min(5, 'Mínimo 5 caractares').required('Campo requerido'),
+    phone: Yup.number().min(5, 'Mínimo 5 caractares').required('Campo requerido'),    
   })
 
   const togglePasswordVisibility = () => {
@@ -82,6 +82,10 @@ export default function Register () {
     event.preventDefault()
     try {
       const phoneNumber = `${values.areacode}${values.phone}`
+      if (phoneNumber.length > 10) {
+        alert('La suma del código de área y el número de teléfono no puede superar los 10 caracteres')
+        return                
+      }
       const newValues = { ...values, phone: phoneNumber }
 
       await validationSchema.validate(newValues, { abortEarly: false })
@@ -157,6 +161,7 @@ export default function Register () {
                   </Text>
                 </Flex>
                 <LoginButton bgcolor='#263049' color='white' name='Confirmar' isLoading={isSubmitting}/>
+                {errors && <Text color='red'>Error al cargar usuario</Text>}
                 <Text fontSize='xs' p='2'>            
                     ¿Ya tienes una cuenta? {' '}
                     <Link fontSize='xs' fontWeight='700' color='#263049' href='/login'>Click aquí para iniciar sesión.</Link>         
