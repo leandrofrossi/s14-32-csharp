@@ -9,6 +9,7 @@ import axios from 'axios'
 export default function Register () {  
   const [values, setValues] = useState({ email: '', password: '', password2: '', firstName: '', lastName: '', areacode: 0, phone: 0 })
   const [errors, setErrors] = useState({})
+  const [phoneError, setPhoneError] = useState()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [showPassword2, setShowPassword2] = useState(false)
@@ -83,28 +84,29 @@ export default function Register () {
     try {
       const phoneNumber = `${values.areacode}${values.phone}`
       if (phoneNumber.length > 10) {
-        alert('La suma del código de área y el número de teléfono no puede superar los 10 caracteres')
+        setPhoneError('La suma del código de área y el número de teléfono no puede superar los 10 caracteres')
         return                
-      }
-      const newValues = { ...values, phone: phoneNumber }
+      } else {
+        setPhoneError('')      
+        const newValues = { ...values, phone: phoneNumber }
 
-      await validationSchema.validate(newValues, { abortEarly: false })
-      setIsSubmitting(true)      
-      console.log(newValues) 
-      const requestBody = {
-        email: newValues.email,
-        firstName: newValues.firstName,
-        lastName: newValues.lastName,
-        password: newValues.password,
-        confirmPassword: newValues.password2, 
-        phoneNumber: newValues.phone, 
-        profileImage: imageUrl,
-      }
-      console.log(requestBody)
-      await axios.post('https://www.eventplanner.somee.com/api/Acounts/SignIn', requestBody)   
-      console.log(requestBody)
-      navigate('/login')
-    } catch (error) {
+        await validationSchema.validate(newValues, { abortEarly: false })
+        setIsSubmitting(true)      
+        console.log(newValues) 
+        const requestBody = {
+          email: newValues.email,
+          firstName: newValues.firstName,
+          lastName: newValues.lastName,
+          password: newValues.password,
+          confirmPassword: newValues.password2, 
+          phoneNumber: newValues.phone, 
+          profileImage: imageUrl,
+        }
+        console.log(requestBody)
+        await axios.post('https://www.eventplanner.somee.com/api/Acounts/SignIn', requestBody)   
+        console.log(requestBody)
+        navigate('/login')
+    }} catch (error) {
       const formErrors = {}
       if (error.inner) {
         error.inner.forEach((err) => {
@@ -144,6 +146,9 @@ export default function Register () {
                       <LoginInput id='lastName' name='Apellido' type='text' placeholder='Rodriguez'onChange={handleChange} errors={errors}/>
                       <LoginInput id='areacode' name='Código de area' type='number' placeholder='011' onChange={handleChange} errors={errors}/>
                       <LoginInput id='phone' name='Teléfono' type='number' placeholder='46239758' onChange={handleChange} errors={errors}/>
+                      {phoneError && (
+                        <Text color="red.500" fontSize="sm">{phoneError}</Text>
+                      )}
                   </Grid>
                   <Box display='flex' flexDirection={{base:'column', lg:'row'}}  justifyContent='center' alignItems='center' gap='4'>
                     <Button variant='outline' borderRadius='3xl' fontSize='xs' boxSize='fit-content' color='#CC949F' py='1' onClick={handleImgSubmit}>Cargar Foto</Button>
